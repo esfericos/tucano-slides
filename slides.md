@@ -17,7 +17,7 @@ mdc: true
 
 # Tucano
 
-OUR INTRODUCTION STANDS HERE
+why use one computer if u can use 5 with Tucano lol
 
 <div class="abs-br m-6 flex gap-2">
   <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
@@ -26,20 +26,47 @@ OUR INTRODUCTION STANDS HERE
   </a>
 </div>
 
+---
+transition: fade-out
+---
+
+# Indíce
+<Toc maxDepth="1"></Toc>
+
+---
+layout: default
+---
+
+# O que é Tucano?
+
+
+<v-click>
+⏰ Simples <span v-mark.red="1">scheduler de seviços</span> capaz de gerenciar workloads diversos em um sistema composto por vários computadores.
+
+<br/>
+<br/>
+<v-click>
+⚖ Além disso, o scheduler também é responsavel pelo <span v-mark.red="2">balanceamento de carga</span>, de modo a fazer um service discovery para rotear requisições de usuários ao seus respectivos serviços.
+</v-click>
+</v-click>
+
 
 ---
 transition: fade-out
 ---
 
-# What is Slidev?
+# Diagrama
 
-```mermaid
+<div style="display:flex; align-items: center; justify-content:center">
+
+```mermaid {scale: 0.5, alt: 'A simple sequence diagram', theme: 'dark'}
 graph TB
     user
     user -- request --> balancer
 
     sysadmin
     sysadmin -- (http) configures --> deployer
+    sysadmin ---> config_mgr
     agent_mgr -- alerts --> sysadmin
 
     subgraph system-network
@@ -48,6 +75,7 @@ graph TB
             deployer
             balancer
             agent_mgr
+            config_mgr
             discovery
 
             deployer --> discovery
@@ -70,44 +98,24 @@ graph TB
     end
 ```
 
----
-layout: default
----
-
-# Table of contents
-
-```html
-<Toc minDepth="1" maxDepth="1"></Toc>
-```
-
-<Toc maxDepth="1"></Toc>
-
+</div>
 ---
 transition: slide-up
 level: 2
 ---
 
-# Navigation
+# Descrição dos componentes.
+Explicação dos componentes dos diagramas.
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-## Keyboard Shortcuts
+## Controller
 
 |     |     |
 | --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
+| <kbd>deployer</kbd>| Aceita a configuração estática de um serviço e inicia o processo de deploy |
+| <kbd>balancer</kbd> | Balaceia a carga aos nós correspondentes  |
+| <kbd>agent_mgr</kbd> | Recebe informações dos agents e lida com eventuais "mortes" de workers. |
+| <kbd>discovery</kbd> | Mantém informações necessárias para realizar service discovery. |
 
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
 
 ---
 layout: image-right
@@ -270,15 +278,6 @@ Check out [the guides](https://sli.dev/builtin/components.html) for more.
 </div>
 </div>
 
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
 
 ---
 class: px-20
