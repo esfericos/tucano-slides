@@ -181,6 +181,7 @@ Queremos lançar nosso cardápio digítal usando Tucano.
 
 ---
 transition: fade
+level: 2
 ---
 
 # Na prática
@@ -284,30 +285,14 @@ class: px-20
 
 # Cronograma
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
+|	Sun	|	Mon	|	Tue	|	Wed	|	Thu	|	Fri	|	Sat	|
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+|		|		|		|		|		|	1	|	2	|
+|	3	|	4	|	5	|	6	|	7	|	8	|	9	|
+|	10	|	11	|	12	|	13	|	14	|	15	|	16	|
+|	17	|	18	|	19	|	20	|	21	|	22	|	23	|
+|	24	|	25	|	26	|	27	|	28	|	29	|	30	|
+|	31	|		|		|		|		|		|		|
 
 ---
 layout: center
