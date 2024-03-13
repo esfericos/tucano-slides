@@ -2,6 +2,7 @@
 theme: seriph
 background: https://cover.sli.dev
 title: Tucano
+colorSchema: dark
 info: |
   ## Slidev Starter Template
   Presentation slides for developers.
@@ -51,8 +52,8 @@ layout: default
 </v-click>
 
 ---
-
-## transition: fade-out
+transition: fade-out
+---
 
 # Diagrama
 
