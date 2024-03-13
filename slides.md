@@ -280,7 +280,45 @@ Disponibilidade decidida a partir de métricas de consumo do worker (consumo de 
 
 
 ---
-class: px-20
+transition: fade
+---
+
+# Metodologia
+
+<div
+  style="display: flex; align-items: flex-start; width: 100%; justify-content: space-between"
+>
+
+<blockquote v-click="1" style="width: 50%; transition: all 350ms ease;">
+
+**📆 Reuniões semanais**
+
+ <hr style="border-top: solid 1px gray; padding: 4px; margin-top: 8px"/>
+
+ <p style="font-size:12px">Domingo, 09:00h - 12:00h</p>
+
+ <p style="font-size:12px"> Rever progresso, discutir desafios, estabelecer metas</p>
+
+ <p style="font-size:12px"> Alinhamento de prioridades e distribuição de tarefas</p>
+</blockquote>
+
+<blockquote v-click="2" style="width: 45%; transition: all 350ms ease;">
+ 
+ **🔰 Reuniões Ocasionais**
+
+ <hr style="border-top: solid 1px gray; padding: 4px; margin-top: 8px"/>
+
+ <p style="font-size:12px">Ajustes rápidos, discussões emergenciais</p>
+
+ <p style="font-size:12px"> Alinhamento de prioridades e distribuição de tarefas</p>
+
+ <p style="font-size:12px">Sessões de Pair Programming</p>
+</blockquote>
+
+</div>
+
+---
+transition: slide-up
 ---
 
 # Cronograma
