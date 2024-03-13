@@ -31,6 +31,7 @@ transition: fade-out
 ---
 
 # Indíce
+
 <Toc maxDepth="1"></Toc>
 
 ---
@@ -38,7 +39,6 @@ layout: default
 ---
 
 # O que é Tucano?
-
 
 <v-click>
 ⏰ Simples <span v-mark.red="1">scheduler de seviços</span> capaz de gerenciar workloads diversos em um sistema composto por vários computadores.
@@ -50,10 +50,9 @@ layout: default
 </v-click>
 </v-click>
 
+---
 
----
-transition: fade-out
----
+## transition: fade-out
 
 # Diagrama
 
@@ -99,41 +98,39 @@ graph TB
 ```
 
 </div>
+
 ---
 transition: slide-up
 level: 2
 ---
 
 # Descrição dos componentes.
-Explicação dos componentes dos diagramas.
 
+Explicação dos componentes dos diagramas.
 
 ## 🎮 Controller
 
-|     |     |
-| --- | --- |
-| <kbd>deployer</kbd>| Aceita a configuração estática de um serviço e inicia o processo de deploy |
-| <kbd>balancer</kbd> | Balaceia a carga aos nós correspondentes  |
-| <kbd>agent_mgr</kbd> | Recebe informações dos agents e lida com eventuais "mortes" de workers. |
-| <kbd>discovery</kbd> | Mantém informações necessárias para realizar service discovery. |
-
+|                      |                                                                            |
+| -------------------- | -------------------------------------------------------------------------- |
+| <kbd>deployer</kbd>  | Aceita a configuração estática de um serviço e inicia o processo de deploy |
+| <kbd>balancer</kbd>  | Balaceia a carga aos nós correspondentes                                   |
+| <kbd>agent_mgr</kbd> | Recebe informações dos agents e lida com eventuais "mortes" de workers.    |
+| <kbd>discovery</kbd> | Mantém informações necessárias para realizar service discovery.            |
 
 ---
 transition: slide-left
 ---
 
-
 # Descrição dos componentes.
-Explicação dos componentes dos diagramas.
 
+Explicação dos componentes dos diagramas.
 
 ## ⚒ Worker
 
-|     |     |
-| --- | --- |
-| <kbd>monitor</kbd>| Coleta métricas do worker e envia periodicmente ao controlador |
-| <kbd>runner</kbd> | Recebe instruções de deploy do controlador e inicia o processo correspondente no worker  |
-
+|                    |                                                                                         |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| <kbd>monitor</kbd> | Coleta métricas do worker e envia periodicmente ao controlador                          |
+| <kbd>runner</kbd>  | Recebe instruções de deploy do controlador e inicia o processo correspondente no worker |
 
 ---
 transition: slide-up
@@ -143,7 +140,6 @@ transition: slide-up
 
 Queremos lançar nosso cardápio digítal usando Tucano.
 
-
 <v-click>
 
 ## Processo de deploy
@@ -151,33 +147,34 @@ Queremos lançar nosso cardápio digítal usando Tucano.
 <v-click>
 
 1. Vamos definir algumas regras no nosso arquivo de configuração
-  ```md
-  port: 80           | especifica qual porta deve ser aberta
-  concurrency: 3     | quantidade de processos que devem estar executando o serviço 
-  image: ...         | referência à imagem utilizada pelo processo
-  ```
+
+```md
+port: 80 | especifica qual porta deve ser aberta
+concurrency: 3 | quantidade de processos que devem estar executando o serviço
+image: ... | referência à imagem utilizada pelo processo
+```
 
 <div v-click style="margin-top: 24px">
 
 2. Definir o `build script`
-  ```md
-  yarn build ...
-  ```
+
+```md
+yarn build ...
+```
 
 <div v-click="4" style="margin-top: 24px">
 
-
 3. Definir o `runtime script`
-  ```md
-  yarn run ...
-  ```
+
+```md
+yarn run ...
+```
 
 </div>
 </div>
 
 </v-click>
 </v-click>
-
 
 ---
 transition: fade
@@ -187,7 +184,6 @@ level: 2
 # Na prática
 
 Queremos lançar nosso cardápio digítal usando Tucano.
-
 
 ## Runtime
 
@@ -229,6 +225,7 @@ graph TB
 
     end
 ```
+
 </div>
 
 <div style="display: flex; align-items: center">
@@ -303,7 +300,7 @@ transition: fade
 </blockquote>
 
 <blockquote v-click="2" style="width: 45%; transition: all 350ms ease;">
- 
+
  **🔰 Reuniões Ocasionais**
 
  <hr style="border-top: solid 1px gray; padding: 4px; margin-top: 8px"/>
@@ -338,4 +335,56 @@ class: text-center
 ---
 
 # Obrigado!
+
+<div style="display: grid; grid-template-columns: 40% 40%; justify-content: center; gap: 16px;">
+
+
+
+<div>
+<h3>Eduardo Lemos</h3>
+ <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-linkedin />
+  </a>
+   <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-github />
+  </a>
+</div>
+
+> Yuri Rousseff
+ <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-linkedin />
+  </a>
+   <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-github />
+  </a>
+
+
+> Luiz Felipe
+ <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-linkedin />
+  </a>
+   <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-github />
+  </a>
+
+> Gustavo Dias
+ <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-linkedin />
+  </a>
+   <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
+    class="text-xs slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-github />
+  </a>
+
+
+</div>
+
+
 [GitHub](https://github.com/esfericos/tucano)
