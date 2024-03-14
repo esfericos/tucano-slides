@@ -20,6 +20,12 @@ mdc: true
 
 why use one computer if u can use 5 with Tucano lol
 
+
+<p style="font-size:14px; margin: 0px; margin-top: 32px">Eduardo Lemos Paschoalini</p>
+<p style="font-size:14px; margin: 0px;">Gustavo Dias Aguiar</p>
+<p style="font-size:14px; margin: 0px;">Luiz Felipe Frazão</p>
+<p style="font-size:14px; margin: 0px;">Yuri Rousseff</p>
+
 <div class="abs-br m-6 flex gap-2">
   <a href="https://github.com/esfericos/tucano" target="_blank" alt="GitHub" title="Github"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
@@ -48,6 +54,11 @@ layout: default
 <br/>
 <v-click>
 ⚖ Além disso, o scheduler também é responsavel pelo <span v-mark.red="2">balanceamento de carga</span>, de modo a fazer um service discovery para rotear requisições de usuários ao seus respectivos serviços.
+<br/>
+<br/>
+<v-click>
+🖥 Uso de multiplos computadores físicos em rede local para <span v-mark.red="3">uso distribuido</span>
+</v-click>
 </v-click>
 </v-click>
 
@@ -294,6 +305,8 @@ transition: fade
  <hr style="border-top: solid 1px gray; padding: 4px; margin-top: 8px"/>
 
  <p style="font-size:12px">Domingo, 09:00h - 12:00h</p>
+
+ <p style="font-size:12px">Sexta-Feira, 10:40h - 12:20h</p>
 
  <p style="font-size:12px"> Rever progresso, discutir desafios, estabelecer metas</p>
 
