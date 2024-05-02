@@ -122,40 +122,37 @@ level: 2
 
 ```mermaid {scale: 0.5, alt: 'A simple sequence diagram', theme: 'dark'}
 graph TB
-    user
-    user -- request --> balancer
+    subgraph Controller
+        direction TB
 
-    sysadmin
-    sysadmin -- (http) configures --> deployer
-    sysadmin ---> config_mgr
-    agent_mgr -- alerts --> sysadmin
+        http --> deployer
+        http --> worker_mgr
 
-    subgraph system-network
+        worker_mgr --> notifier
+        worker_mgr <--> discovery
 
-        subgraph ctrl
-            deployer
-            balancer
-            agent_mgr
-            config_mgr
-            discovery
+        deployer <--> discovery
 
-            deployer --> discovery
-            discovery --- balancer
-            agent_mgr --- discovery
+        discovery --> balancer
+    end
+
+    subgraph Worker
+        direction LR
+
+        subgraph Monitor
+            collector --> scheduler
         end
 
-        balancer -- routes requests --> program
-        deployer -- (http) deploy service --> runner
-        monitor -- (http) send metrics and status --> agent_mgr
-
-        subgraph worker
-            monitor
-            runner
-            program
-
-            runner --> program
+        subgraph Runner
+            builder
+            supervisor
         end
 
+        subgraph Services
+            subgraph Service
+                health
+            end
+        end
     end
 ```
 </div>
