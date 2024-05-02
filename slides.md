@@ -36,6 +36,7 @@ why use one computer if u can use 5 with Tucano lol
 ---
 transition: fade-out
 ---
+<!-- END OF TUCANO -->
 
 # Indíce
 
@@ -44,6 +45,7 @@ transition: fade-out
 ---
 layout: default
 ---
+<!-- END OF INDICE -->
 
 # O que é Tucano?
 
@@ -65,9 +67,9 @@ layout: default
 ---
 transition: fade-out
 ---
+<!-- END OF "O QUE E TUCANO" -->
 
-# Diagrama
-
+# Atualizações
 <div style="display:flex; align-items: center; justify-content:center">
 
 ```mermaid {scale: 0.5, alt: 'A simple sequence diagram', theme: 'dark'}
@@ -108,13 +110,144 @@ graph TB
 
     end
 ```
-
 </div>
 
 ---
 transition: slide-up
 level: 2
 ---
+
+# Atualizações
+<div style="display:flex; align-items: center; justify-content:center">
+
+```mermaid {scale: 0.5, alt: 'A simple sequence diagram', theme: 'dark'}
+graph TB
+    user
+    user -- request --> balancer
+
+    sysadmin
+    sysadmin -- (http) configures --> deployer
+    sysadmin ---> config_mgr
+    agent_mgr -- alerts --> sysadmin
+
+    subgraph system-network
+
+        subgraph ctrl
+            deployer
+            balancer
+            agent_mgr
+            config_mgr
+            discovery
+
+            deployer --> discovery
+            discovery --- balancer
+            agent_mgr --- discovery
+        end
+
+        balancer -- routes requests --> program
+        deployer -- (http) deploy service --> runner
+        monitor -- (http) send metrics and status --> agent_mgr
+
+        subgraph worker
+            monitor
+            runner
+            program
+
+            runner --> program
+        end
+
+    end
+```
+</div>
+
+---
+transition: slide-up
+level: 2
+---
+
+
+
+
+
+
+
+
+
+
+
+# Atualizações
+
+<div style="display:flex; align-items: center; justify-content:center">
+
+```mermaid {scale: 0.3, alt: 'Deployment Sequency Diagram', theme: 'dark'}
+sequenceDiagram
+    %% Alice->>+John: Hello John, how are you?
+    %% Alice->>+John: John, can you hear me?
+    %% John-->>-Alice: Hi Alice, I can hear you!
+    %% John-->>-Alice: I feel great!
+    actor SysAdmin
+    participant deployer as ctl::deployer
+    participant discovery as ctl::discovery
+    participant wrk_mgr as ctl::worker_mgr
+
+    participant runner as wrk::runner
+    participant builder as wrk::builder
+    participant supervisor as wrk::supervisor
+
+    SysAdmin ->>+ deployer: New deploy request (via CLI)
+    deployer ->>+ discovery: Create new deployment
+    discovery ->>- deployer: Deployment ID
+    deployer ->>- SysAdmin: Deployment ID
+
+    deployer ->>+ discovery: Fetch available workers
+    discovery ->>- deployer: 
+
+    deployer ->> deployer: Select worker
+
+    deployer -->>+ runner: Start deployment
+
+    runner ->>+ builder: Execute build script
+    builder ->>- runner: Report status
+
+    alt build failed
+        runner -->> wrk_mgr: Report build failure
+        wrk_mgr -->> discovery: Record build failed status
+    else build ok
+        runner ->>+ supervisor: Start service
+        supervisor ->>- runner: Report status
+
+        alt service started
+            runner -->> wrk_mgr: Report service running
+            wrk_mgr -->> discovery: Record running status
+
+            opt service crashed
+                runner -->> wrk_mgr: Report failed
+                wrk_mgr -->> discovery: Record failed status
+            end
+        else service failed to start
+            runner -->> wrk_mgr: Report failure
+            wrk_mgr -->> discovery: Record failed status
+        end
+    end
+```
+</div>
+
+---
+transition: slide-up
+level: 2
+---
+
+
+
+
+
+
+
+
+
+
+
+<!-- END OF ATUALIZACOES -->
 
 # Descrição dos componentes.
 
@@ -124,9 +257,10 @@ Explicação dos componentes dos diagramas.
 
 |                      |                                                                            |
 | -------------------- | -------------------------------------------------------------------------- |
+| <kbd>http*</kbd>      | Recebe requisições externas dos workers ou admin e roteia para o componente correspondente |
 | <kbd>deployer</kbd>  | Aceita a configuração estática de um serviço e inicia o processo de deploy |
 | <kbd>balancer</kbd>  | Balaceia a carga aos nós correspondentes                                   |
-| <kbd>agent_mgr</kbd> | Recebe informações dos agents e lida com eventuais "mortes" de workers.    |
+| <kbd>worker_mgr</kbd>| Recebe informações dos agents e lida com eventuais "mortes" de workers.    |
 | <kbd>discovery</kbd> | Mantém informações necessárias para realizar service discovery.            |
 
 ---
@@ -142,7 +276,7 @@ Explicação dos componentes dos diagramas.
 |                    |                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------- |
 | <kbd>monitor</kbd> | Coleta métricas do worker e envia periodicmente ao controlador                          |
-| <kbd>runner</kbd>  | Recebe instruções de deploy do controlador e inicia o processo correspondente no worker |
+| <kbd>runner</kbd>  | Recebe instruções de deploy e inicia o processo correspondente no worker |
 
 ---
 transition: slide-up
