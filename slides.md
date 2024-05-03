@@ -33,7 +33,6 @@ why use one computer if u can use 5 with Tucano lol
 </div>
 
 ---
-
 transition: fade-out
 ---
 <!-- END OF TUCANO -->
@@ -43,7 +42,6 @@ transition: fade-out
 <Toc maxDepth="1"></Toc>
 
 ---
-
 layout: default
 ---
 <!-- END OF INDICE -->
@@ -66,7 +64,6 @@ layout: default
 </v-click>
 
 ---
-
 transition: fade-out
 ---
 <!-- END OF "O QUE E TUCANO" -->
@@ -117,7 +114,6 @@ graph TB
 </div>
 
 ---
-
 transition: slide-up
 level: 2
 ---
@@ -133,7 +129,6 @@ level: 2
 </div>
 
 ---
-
 transition: slide-up
 level: 2
 ---
@@ -197,7 +192,6 @@ sequenceDiagram
 </div>
 
 ---
-
 transition: slide-up
 level: 2
 ---
@@ -219,7 +213,6 @@ Explicação dos componentes dos diagramas.
 | <kbd>discovery</kbd> | Mantém informações necessárias para realizar service discovery.            |
 
 ---
-
 transition: slide-left
 ---
 
@@ -235,7 +228,6 @@ Explicação dos componentes dos diagramas.
 | <kbd>runner</kbd>  | Recebe instruções de deploy e inicia o processo correspondente no worker |
 
 ---
-
 transition: slide-up
 ---
 
@@ -243,19 +235,11 @@ transition: slide-up
 
 ## HTTP
 
-<div v-click style="margin-top: 24px">
+* O controller usa um servidor HTTP para estabelecer comunicação com o workers e requests de SysAdmin. 
 
-* O controller usa um servidor HTTP para estabelecer comunicação com o workers e requests de SysAdmin.
-
-<div v-click="2" style="margin-top: 24px">
-
-* Contém rotas especificas para cada request com seus "handlers" respectivos.
-
-</div>
-</div>
+* Contém rotas especificas para cada request com seus "handlers" respectivos. 
 
 ---
-
 transition: fade
 level: 2
 ---
@@ -264,27 +248,25 @@ level: 2
 
 ## Deployer
 
-<div v-click style="margin-top: 24px">
+* Lida com requisições de deploy dos operadores.
+* Determina qual worker será utilizado para executar o serviço.
+* Também lida com o teardown ("término") de serviços.
 
-* Lida com o deploy e redeploy dos serviços. Também trata com a finalização do serviço.
-
-<div v-click="2" style="margin-top: 24px">
-
-* Parámetros passados em um deploy
-
+* Exemplo dos parâmetros de deploy:
 ```json
-    "name": "Nome do serviço",
+    // Domínio utilizado pelo balancer (cabeçalho HTTP "host")
+    "name": "verde.pucminas.br",
+    // Configurações de rede do serviço
     "network": {
         "expose_port": 80
     },
+    // Imagem (mesmo conceito de imagens do Docker)
+    "image": "gcr.io/...",
+    // Quantas instâncias do serviço serão feitas
     "concurrency": 3
 ```
 
-</div>
-</div>
-
 ---
-
 transition: fade
 level: 2
 ---
@@ -293,24 +275,15 @@ level: 2
 
 ## Balancer
 
-<div v-click style="margin-top: 24px">
+* Recebe requisições dos usuários e roteia para o serviço correspondente.
 
-* Recebe requests dos usuários e roteia para o serviço correspondente
+* Cabeçalho HTTP `Host`.
 
-<div v-click="2" style="margin-top: 24px">
+* Se mais de uma instância existir para um mesmo `Host`, fazemos balanceamento de carga.
 
-* O roteamento é descoberto pelo `HOST` da requisição HTTP. O domínio é linkado ao serviço e o `body` e `headers` da requisição original são repassadas ao serviço.
-
-<div v-click="3" style="margin-top: 24px">
-
-* _Por enquanto, não temos suporte ao protocolo `TLS`_
-
-</div>
-</div>
-</div>
+* O balancer também faz terminação de TLS, de modo que os serviços não precisam se preocupar com isso.
 
 ---
-
 transition: fade
 level: 2
 ---
@@ -319,19 +292,17 @@ level: 2
 
 ## Discovery
 
-<div v-click style="margin-top: 24px">
+* Peça crítica para a implementação de _service discovery_ no sistema.
+    * Dinamicamente determina workers no sistema
+    * Quais serviços (e em quais workers) estão disponíveis
 
-* Um dos componentes mais importantes do Controller. Funciona como um database central que mantém informações sobre os workers, serviços, registros de deploys, métricas, etc.
+* Database central que mantém informações sobre os workers, serviços, registros de deploys, métricas, etc.
 
-<div v-click="2" style="margin-top: 24px">
-
-* _Para melhorar a confiabilidade e robustez do sistema mediante a falhas, os dados são persistidos no disco, onde o armazenamento é baseado em um banco de dados SQLite_
-
-</div>
-</div>
+* Baixa latência, mas alta confiabilidade e robustez do sistema mediante a falhas
+    * Dados são persistidos ao disco utilizando SQLite
+    * Modelo majoritariamente eventualmente consistente
 
 ---
-
 transition: fade
 level: 1
 ---
@@ -340,19 +311,11 @@ level: 1
 
 ## Collector
 
-<div v-click style="margin-top: 24px">
-
-* Coleta informações da máquina worker, como `CPU_Usage` e `Memory`.
-
-<div v-click="2" style="margin-top: 24px">
+* Coleta informações da máquina worker, como uso da CPU e memória.
 
 * Essas informaçõe são enviadas para o controller, com o objetivo de oferecer insights para balancear a carga.
 
-</div>
-</div>
-
 ---
-
 transition: fade
 ---
 
@@ -374,7 +337,6 @@ transition: fade
 </div>
 
 ---
-
 transition: fade
 ---
 
@@ -415,7 +377,6 @@ transition: fade
 </div>
 
 ---
-
 layout: center
 class: text-center
 ---
