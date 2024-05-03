@@ -20,7 +20,6 @@ mdc: true
 
 why use one computer if u can use 5 with Tucano lol
 
-
 <p style="font-size:14px; margin: 0px; margin-top: 32px">Eduardo Lemos Paschoalini</p>
 <p style="font-size:14px; margin: 0px;">Gustavo Dias Aguiar</p>
 <p style="font-size:14px; margin: 0px;">Luiz Felipe Frazão</p>
@@ -34,6 +33,7 @@ why use one computer if u can use 5 with Tucano lol
 </div>
 
 ---
+
 transition: fade-out
 ---
 <!-- END OF TUCANO -->
@@ -43,6 +43,7 @@ transition: fade-out
 <Toc maxDepth="1"></Toc>
 
 ---
+
 layout: default
 ---
 <!-- END OF INDICE -->
@@ -65,11 +66,13 @@ layout: default
 </v-click>
 
 ---
+
 transition: fade-out
 ---
 <!-- END OF "O QUE E TUCANO" -->
 
 # Atualizações
+
 <div style="display:flex; align-items: center; justify-content:center">
 
 ```mermaid {scale: 0.5, alt: 'A simple sequence diagram', theme: 'dark'}
@@ -110,14 +113,17 @@ graph TB
 
     end
 ```
+
 </div>
 
 ---
+
 transition: slide-up
 level: 2
 ---
 
 # Atualizações
+
 <div style="display:flex; align-items: center; justify-content:center; width: 100%">
 
 <div style="width: 550px">
@@ -127,19 +133,10 @@ level: 2
 </div>
 
 ---
+
 transition: slide-up
 level: 2
 ---
-
-
-
-
-
-
-
-
-
-
 
 # Atualizações
 
@@ -196,26 +193,18 @@ sequenceDiagram
         end
     end
 ```
+
 </div>
 
 ---
+
 transition: slide-up
 level: 2
 ---
 
-
-
-
-
-
-
-
-
-
-
 <!-- END OF ATUALIZACOES -->
 
-# Descrição dos componentes.
+# Descrição dos componentes
 
 Explicação dos componentes dos diagramas.
 
@@ -230,10 +219,11 @@ Explicação dos componentes dos diagramas.
 | <kbd>discovery</kbd> | Mantém informações necessárias para realizar service discovery.            |
 
 ---
+
 transition: slide-left
 ---
 
-# Descrição dos componentes.
+# Descrição dos componentes
 
 Explicação dos componentes dos diagramas.
 
@@ -245,6 +235,7 @@ Explicação dos componentes dos diagramas.
 | <kbd>runner</kbd>  | Recebe instruções de deploy e inicia o processo correspondente no worker |
 
 ---
+
 transition: slide-up
 ---
 
@@ -254,20 +245,20 @@ transition: slide-up
 
 <div v-click style="margin-top: 24px">
 
-* O controller usa um servidor HTTP para estabelecer comunicação com o workers e requests de SysAdmin. 
+* O controller usa um servidor HTTP para estabelecer comunicação com o workers e requests de SysAdmin.
 
 <div v-click="2" style="margin-top: 24px">
 
-* Contém rotas especificas para cada request com seus "handlers" respectivos. 
+* Contém rotas especificas para cada request com seus "handlers" respectivos.
 
 </div>
 </div>
 
 ---
+
 transition: fade
 level: 2
 ---
-
 
 # Implementação Controller
 
@@ -280,15 +271,11 @@ level: 2
 <div v-click="2" style="margin-top: 24px">
 
 * Parámetros passados em um deploy
+
 ```json
     "name": "Nome do serviço",
     "network": {
         "expose_port": 80
-    },
-    "scripts": {
-        "build-script": "yarn build",
-        "runtime-script": "yarn run",
-        "teardown_script": "..."
     },
     "concurrency": 3
 ```
@@ -297,6 +284,7 @@ level: 2
 </div>
 
 ---
+
 transition: fade
 level: 2
 ---
@@ -322,6 +310,7 @@ level: 2
 </div>
 
 ---
+
 transition: fade
 level: 2
 ---
@@ -342,11 +331,10 @@ level: 2
 </div>
 
 ---
+
 transition: fade
 level: 1
 ---
-
-
 
 # Implementação Worker
 
@@ -354,7 +342,7 @@ level: 1
 
 <div v-click style="margin-top: 24px">
 
-* Coleta informações da máquina worker, como `CPU_Usage` e `Memory`. 
+* Coleta informações da máquina worker, como `CPU_Usage` e `Memory`.
 
 <div v-click="2" style="margin-top: 24px">
 
@@ -364,11 +352,9 @@ level: 1
 </div>
 
 ---
+
 transition: fade
 ---
-
-
-
 
 # Progresso do Projeto
 
@@ -380,15 +366,15 @@ transition: fade
 <br/>
 <br/>
 
-> 70% - Projeto Concluído 
+> 70% - Projeto Concluído
 
 <div style="width: 100%; background-color: #1B1B1B; height: 32px; border: solid 1px #313131; border-radius: 5px; margin-top: 8px">
 <div style="width: 70%; background-color: #5D8392; height: 100%; border-radius: 5px">
 </div>
 </div>
 
-
 ---
+
 transition: fade
 ---
 
@@ -429,9 +415,11 @@ transition: fade
 </div>
 
 ---
+
 layout: center
 class: text-center
 ---
 
-# Obrigado!
+# Obrigado
+
 [GitHub](https://github.com/esfericos/tucano)
