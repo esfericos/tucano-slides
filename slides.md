@@ -118,43 +118,12 @@ level: 2
 ---
 
 # Atualizações
-<div style="display:flex; align-items: center; justify-content:center">
+<div style="display:flex; align-items: center; justify-content:center; width: 100%">
 
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram', theme: 'dark'}
-graph TB
-    subgraph Controller
-        direction TB
+<div style="width: 550px">
 
-        http --> deployer
-        http --> worker_mgr
-
-        worker_mgr --> notifier
-        worker_mgr <--> discovery
-
-        deployer <--> discovery
-
-        discovery --> balancer
-    end
-
-    subgraph Worker
-        direction LR
-
-        subgraph Monitor
-            collector --> scheduler
-        end
-
-        subgraph Runner
-            builder
-            supervisor
-        end
-
-        subgraph Services
-            subgraph Service
-                health
-            end
-        end
-    end
-```
+![Diagram](/images/diagram.jpg)
+</div>
 </div>
 
 ---
@@ -279,144 +248,144 @@ Explicação dos componentes dos diagramas.
 transition: slide-up
 ---
 
-# Na prática
+# Implementação Controller
 
-Queremos lançar nosso cardápio digítal usando Tucano.
-
-<v-click>
-
-## Processo de deploy
-
-<v-click>
-
-1. Vamos definir algumas regras no nosso arquivo de configuração
-
-```md
-port: 80 | especifica qual porta deve ser aberta
-concurrency: 3 | quantidade de processos que devem estar executando o serviço
-image: ... | referência à imagem utilizada pelo processo
-```
+## HTTP
 
 <div v-click style="margin-top: 24px">
 
-2. Definir o `build script`
+* O controller usa um servidor HTTP para estabelecer comunicação com o workers e requests de SysAdmin. 
 
-```md
-yarn build ...
-```
+<div v-click="2" style="margin-top: 24px">
 
-<div v-click="4" style="margin-top: 24px">
-
-3. Definir o `runtime script`
-
-```md
-yarn run ...
-```
+* Contém rotas especificas para cada request com seus "handlers" respectivos. 
 
 </div>
 </div>
-
-</v-click>
-</v-click>
 
 ---
 transition: fade
 level: 2
 ---
 
-# Na prática
 
-Queremos lançar nosso cardápio digítal usando Tucano.
+# Implementação Controller
 
-## Runtime
+## Deployer
 
-<div
-  style="
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin-top: 24px;
-  "
->
+<div v-click style="margin-top: 24px">
 
-<div v-click="1"
-  style="margin-right: 90px"
->
-<p
-  style="
-  font-size: 10px;
-  margin: 0px;
-  color: gray;
-  font-weight: 600;"> Requisição de usuário </p>
+* Lida com o deploy e redeploy dos serviços. Também trata com a finalização do serviço.
 
-```mermaid {scale: 0.6, alt: 'User Request', theme: 'dark'}
-graph TB
-    user
-    user -- request --> balancer
+<div v-click="2" style="margin-top: 24px">
 
-    subgraph system-network
-
-        subgraph ctrl
-            balancer
-        end
-
-        balancer -- routes requests --> program
-
-        subgraph worker
-            program
-        end
-
-    end
+* Parámetros passados em um deploy
+```json
+    "name": "Nome do serviço",
+    "network": {
+        "expose_port": 80
+    },
+    "scripts": {
+        "build-script": "yarn build",
+        "runtime-script": "yarn run",
+        "teardown_script": "..."
+    },
+    "concurrency": 3
 ```
 
 </div>
-
-<div style="display: flex; align-items: center">
-<div v-click="2" style="margin-right: 16px" >
-<p
-  style="
-  font-size: 10px;
-  margin: 0px;
-  color: gray;
-  margin-left: 32px;
-  font-weight: 600;">Balancer</p>
-  
-```mermaid {scale: 0.4, alt: 'User Request', theme: 'dark'}
-graph TB
-    user -- request --> balancer
-    subgraph system-network
-
-        subgraph ctrl
-            balancer
-            agent_mgr
-            discovery
-
-            discovery --- balancer
-            agent_mgr --- discovery
-        end
-
-        balancer -- routes requests --> program
-        monitor -- (http) send metrics and status --> agent_mgr
-
-        subgraph worker
-            monitor
-            program
-
-        end
-
-    end
-
-```
 </div>
 
-<div v-click="3">
+---
+transition: fade
+level: 2
+---
 
-Disponibilidade decidida a partir de métricas de consumo do worker (consumo de CPU, memória, disco, etc...) e enviadas para o `agent_mgr`
+# Implementação Controller
+
+## Balancer
+
+<div v-click style="margin-top: 24px">
+
+* Recebe requests dos usuários e roteia para o serviço correspondente
+
+<div v-click="2" style="margin-top: 24px">
+
+* O roteamento é descoberto pelo `HOST` da requisição HTTP. O domínio é linkado ao serviço e o `body` e `headers` da requisição original são repassadas ao serviço.
+
+<div v-click="3" style="margin-top: 24px">
+
+* _Por enquanto, não temos suporte ao protocolo `TLS`_
 
 </div>
 </div>
 </div>
 
+---
+transition: fade
+level: 2
+---
+
+# Implementação Controller
+
+## Discovery
+
+<div v-click style="margin-top: 24px">
+
+* Um dos componentes mais importantes do Controller. Funciona como um database central que mantém informações sobre os workers, serviços, registros de deploys, métricas, etc.
+
+<div v-click="2" style="margin-top: 24px">
+
+* _Para melhorar a confiabilidade e robustez do sistema mediante a falhas, os dados são persistidos no disco, onde o armazenamento é baseado em um banco de dados SQLite_
+
+</div>
+</div>
+
+---
+transition: fade
+level: 1
+---
+
+
+
+# Implementação Worker
+
+## Collector
+
+<div v-click style="margin-top: 24px">
+
+* Coleta informações da máquina worker, como `CPU_Usage` e `Memory`. 
+
+<div v-click="2" style="margin-top: 24px">
+
+* Essas informaçõe são enviadas para o controller, com o objetivo de oferecer insights para balancear a carga.
+
+</div>
+</div>
+
+---
+transition: fade
+---
+
+
+
+
+# Progresso do Projeto
+
+* Documentação Concluída
+* Diagrama de Deploy
+* Componentes do Worker `2/3`
+* Componentes do Controller `3/5`
+
+<br/>
+<br/>
+
+> 70% - Projeto Concluído 
+
+<div style="width: 100%; background-color: #1B1B1B; height: 32px; border: solid 1px #313131; border-radius: 5px; margin-top: 8px">
+<div style="width: 70%; background-color: #5D8392; height: 100%; border-radius: 5px">
+</div>
+</div>
 
 
 ---
