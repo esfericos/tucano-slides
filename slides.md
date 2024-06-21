@@ -64,6 +64,15 @@ layout: default
 </v-click>
 
 ---
+class: text-center
+layout: center
+---
+
+<p style="font-size: 32px; line-height: 120%;">
+🌟 Escalonador de serviços e Balanceador de carga em um sistema distribuido, utilizando containers isolando a execução
+</p>
+
+---
 transition: fade-out
 ---
 <!-- END OF "O QUE E TUCANO" -->
